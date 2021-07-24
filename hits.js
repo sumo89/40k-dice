@@ -3,8 +3,9 @@ totalHits = 0, totalWounds = 0, failedSaves = 0,
 failedInvulns = 0, totalDamage = 0, additionalWounds = 0,
 saveChance = 0, totalSavedWounds = 0, totalDamage = 0, killedModels = 0, totalFailedWoundSaves = 0,
 
-attacker = PossibleUnits.VANVET;
-defender = PossibleUnits.CARNIFEX;
+/////////// Set the defending and attacking units here, data sheets are in data.js
+attacker = PossibleUnits.VANVETPFIST;
+defender = PossibleUnits.PLAGUEMARINE;
 
 // hit chance
 // amount of hits
@@ -161,6 +162,8 @@ console.log('Defender: ', defender.name);
         defender.wounds < attacker.damage){
         // if each attack does the same or more damage as the defender's wounds then each kills one
         killedModels = totalFailedWoundSaves;
+        console.log('defender wounds ', defender.wounds);
+        console.log('attacker damage ', attacker.damage);
         console.log('!!! killedModels, wounds == damage', killedModels);
         console.log(' ');
     }
