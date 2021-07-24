@@ -2,10 +2,7 @@ var chanceOfHit = 0, chanceOfWound = 0, totalAttacks = 0,
 totalHits = 0, totalWounds = 0, failedSaves = 0, 
 failedInvulns = 0, totalDamage = 0, additionalWounds = 0,
 saveChance = 0, totalSavedWounds = 0, totalDamage = 0, killedModels = 0, totalFailedWoundSaves = 0,
-
-/////////// Set the defending and attacking units here, data sheets are in data.js
-attacker = PossibleUnits.VANVETPFIST;
-defender = PossibleUnits.PLAGUEMARINE;
+attackerDamage, attackerAP,
 
 // hit chance
 // amount of hits
@@ -17,34 +14,47 @@ defender = PossibleUnits.PLAGUEMARINE;
 // amount of invuln saves
 // total damage
 // total kills
+
+/////////// Set the defending and attacking units here, data sheets are in data.js
+attacker = PossibleUnits.TERMINATORASSAULT,
+defender = PossibleUnits.PLAGUEMARINE,
+inAssaultPhase = false,
+inWhiteScarsAssault = false;
+
+
+attackerAttacks = inAssaultPhase ? attacker.attacks + 1 : attacker.attacks;
+attackerDamage = inWhiteScarsAssault ? attacker.damage + 1 : attacker.damage;
+attackerAP = inWhiteScarsAssault ? attacker.ap + 1 : attacker.ap;
+
 console.log('Attacker: ', attacker.name, ' x ', attacker.models);
 console.log('Defender: ', defender.name);
+console.log('inWhiteScarsAssault ? ', inWhiteScarsAssault);
 
 (function getTotalAttacks(){
     // total amount of attacks + 1 for seargeant
-    totalAttacks = attacker.models * attacker.attacks +1;
-    console.log('totalAttacks ', totalAttacks);
+    totalAttacks = (attacker.models * attackerAttacks) +1;
+    console.log('totalAttacks ', Math.round(totalAttacks * 100)/ 100);
 })();
 
 (function setHitChance(){
     chanceOfHit = 1 - ((attacker.ws-1) / 6);
-    console.log('chanceOfHit ', chanceOfHit);
+    console.log('chanceOfHit ', Math.round(chanceOfHit * 100)/ 100);
 })();
 
 (function getTotalHits(){
     initialHits = totalAttacks * chanceOfHit;
-    console.log('initialHits ', initialHits);
+    console.log('initialHits ', Math.round(initialHits * 100)/ 100);
 
      // if any hit modifiers
      if (attacker.hitMod.length > 0){
         if (attacker.hitMod === Hitmods.ALL){
              //  amount of failed hits then run through the same percent chance
              var missedHits = totalAttacks - initialHits;
-             console.log('missedHits ', missedHits);
+             console.log('missedHits ', Math.round(missedHits * 100)/ 100);
              var additionalHits = missedHits * chanceOfHit;
-             console.log('additionalHits ', additionalHits);
+             console.log('additionalHits ', Math.round(additionalHits * 100)/ 100);
              totalHits = initialHits + additionalHits;
-             console.log('totalHits w/ all reroll', totalHits);
+             console.log('totalHits w/ all reroll', Math.round(totalHits * 100)/ 100);
         }
         if (attacker.hitMod === Hitmods.ONES){
             var missedHits = totalAttacks - initialHits;
@@ -52,17 +62,17 @@ console.log('Defender: ', defender.name);
             var missedOnes = missedHits * Percents.ONESIXTH;
             var additionalHits = missedOnes * chanceOfHit;
             totalHits = initialHits + additionalHits;
-            console.log('totalHits w/ ones reroll', totalHits);
+            console.log('totalHits w/ ones reroll', Math.round(totalHits * 100)/ 100);
         }
         if (attacker.hitMod === Hitmods.MINUSONE){
             // remove 1/6 of the hits as they would be 1s
             totalHits = initialHits * Percents.FIVESIXTHS;
-            console.log('totalHits w/ minus one to hit ', totalHits);
+            console.log('totalHits w/ minus one to hit ', Math.round(totalHits * 100)/ 100);
         }
     }
     else {
         totalHits = initialHits;
-        console.log('totalHits ', totalHits);
+        console.log('totalHits ', Math.round(totalHits * 100)/ 100);
     }
 })();
 
@@ -99,18 +109,18 @@ console.log('Defender: ', defender.name);
 (function getTotalWounds(){
     // wounds based on hits by strength/toughness
     initialWounds = totalHits * chanceOfWound;
-    console.log('chanceOfWound ', chanceOfWound);
-    console.log('initialWounds ', initialWounds);
+    console.log('chanceOfWound ', Math.round(chanceOfWound * 100)/ 100);
+    console.log('initialWounds ', Math.round(initialWounds * 100)/ 100);
 
     if (attacker.woundMod.length > 0){
         if (attacker.woundMod === Woundmods.ALL){
             //  amount of failed wounds then run through the same percent chance
             var missedWounds = totalHits - initialWounds;
-            console.log('missedWounds ', missedWounds);
+            console.log('missedWounds ', Math.round(missedWounds * 100)/ 100);
             var additionalWounds = missedWounds * chanceOfWound;
-            console.log('additionalWounds ', additionalWounds);
+            console.log('additionalWounds ', Math.round(additionalWounds * 100)/ 100);
             totalWounds = initialWounds + additionalWounds;
-            console.log('totalWounds w/ all reroll', totalWounds);
+            console.log('totalWounds w/ all reroll', Math.round(totalWounds * 100)/ 100);
         }
         if (attacker.woundMod === Woundmods.ONES){
             var missedWounds = totalHits - initialWounds;
@@ -118,30 +128,30 @@ console.log('Defender: ', defender.name);
             var missedOnes = missedWounds * Percents.ONESIXTH;
             var additionalWounds = missedOnes * chanceOfWound;
             totalWounds = initialWounds + additionalWounds;
-            console.log('totalWounds w/ ones reroll', totalWounds);
+            console.log('totalWounds w/ ones reroll', Math.round(totalWounds * 100)/ 100);
 
         }
         if (attacker.woundMod === Woundmods.MINUSONE){
              // remove 1/6 of the hits as they would be 1s
              totalWounds = initialWounds * Percents.FIVESIXTHS;
-             console.log('totalWounds w/ minus one to wound ', totalWounds);
+             console.log('totalWounds w/ minus one to wound ', Math.round(totalWounds * 100)/ 100);
         }
     }
     else {
         totalWounds = initialWounds;
-        console.log('totalWounds ', totalWounds);
+        console.log('totalWounds ', Math.round(totalWounds * 100)/ 100);
     }
 })();
 
 (function getSaveChance(){
     saveChance = 1 - ((defender.save-1) / 6);
-    console.log('saveChance ', saveChance);
+    console.log('saveChance ', Math.round(saveChance * 100)/ 100);
 
-    if (attacker.ap > 0){
+    if (attackerAP > 0){
         // multiple each point of AP by 1/6
-        apPercent = attacker.ap * Percents.ONESIXTH;
+        apPercent = attackerAP * Percents.ONESIXTH;
         saveChance -= apPercent;
-        console.log('saveChance w/ ap', saveChance);
+        console.log('saveChance w/ ap', Math.round(saveChance * 100)/ 100);
 
     }
 })();
@@ -150,33 +160,43 @@ console.log('Defender: ', defender.name);
     totalSavedWounds = totalWounds * saveChance;
     totalFailedWoundSaves = totalWounds * (1 - saveChance);
     // console.log('totalSavedWounds ', totalSavedWounds);
-    console.log('totalFailedWoundSaves ', totalFailedWoundSaves);
+    console.log('totalFailedWoundSaves ', Math.round(totalFailedWoundSaves * 100)/ 100);
 })();
+
 (function getDamage(){
     // total number of damage
-    totalDamage = totalFailedWoundSaves * attacker.damage;
-    console.log('totalDamage ', totalDamage);
+    if (defender.damageMod && defender.damageMod.length > 0 && attackerDamage > 1){
+        // if the defender has -1 to damage, then minus the amount of unsaved wounds from the total damage
+        if (defender.damageMod === Damagemods.MINUSONE){
+            attackerDamage --;
+            console.log('defender has minus 1 to damage, new attacker damager: ', attackerDamage)
+        }
+    }
+    totalDamage = totalFailedWoundSaves * attackerDamage;
+    console.log('totalDamage ', Math.round(totalDamage * 100)/ 100);
+
     // number of killed units
     killedModels = '';
-    if (defender.wounds === attacker.damage ||
-        defender.wounds < attacker.damage){
+    
+    if (defender.wounds === attackerDamage ||
+        defender.wounds < attackerDamage){
         // if each attack does the same or more damage as the defender's wounds then each kills one
         killedModels = totalFailedWoundSaves;
         console.log('defender wounds ', defender.wounds);
-        console.log('attacker damage ', attacker.damage);
-        console.log('!!! killedModels, wounds == damage', killedModels);
+        console.log('attacker damage ', attackerDamage);
+        console.log('!!! killedModels, wounds == damage', Math.round(killedModels * 100)/ 100);
         console.log(' ');
     }
-    else if (defender.wounds > attacker.damage){
+    else if (defender.wounds > attackerDamage){
         // if each defender has more wounds than the damage
         // e.g. wounds = 3, damage = 2
         // work out how many attacks to kill each unit
-        var attacksPerDefender = Math.ceil(defender.wounds / attacker.damage);
+        var attacksPerDefender = Math.ceil(defender.wounds / attackerDamage);
         console.log('defender wounds ', defender.wounds);
-        console.log('attacker damage ', attacker.damage);
+        console.log('attacker damage ', attackerDamage);
         console.log('attacksPerDefender ', attacksPerDefender);
         killedModels = totalFailedWoundSaves / attacksPerDefender;
-        console.log('!!! killedModels, wounds > damage', killedModels);
+        console.log('!!! killedModels, wounds > damage', Math.round(killedModels * 100)/ 100);
         console.log(' ');
     }
 })();
