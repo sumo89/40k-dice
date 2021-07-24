@@ -9,6 +9,35 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
+
+        <form id="form">
+            <select name="attacker" id="attacker-select"></select>
+            <select name="defender" id="defender-select"></select>
+            <select name="assaultPhase" id="assault-select">
+                <option value="true">True</option>
+                <option value="false" selected="selected">False</option>
+            </select>
+            <select name="whiteScars" id="whitescars-select">
+                <option value="true">True</option>
+                <option value="false" selected="selected">False</option>
+            </select>
+            <input type="submit" value="Submit" id="submit">
+        </form>
+
+        <header id="header"></header>
+        <h2>Attacking unit</h2>
+        <h3 id="attacking-unit"></h3>
+        <h2>Defending unit</h2>
+        <h3 id="defending-unit"></h3>
+        <h2>Failed Saves</h2>
+        <h3 id="failed-saves"></h3>
+        <h2>Total Damage</h2>
+        <h3 id="damage"></h3>
+        <h2>Attacks per model</h2>
+        <h3 id="attacksPerDefender"></h3>
+        <h2>Models killed</h2>
+        <h3 id="kills"></h3>
+
         
         <script src="data.js" async defer></script>
         <script src="hits.js" async defer></script>
