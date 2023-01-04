@@ -16,6 +16,11 @@ attackerDamage, attackerAP;
 // total kills
 
 
+// TODO
+// Add Mortals on 6s hit or wound, end attack or aditional
+// Add FNPs to failed saves
+
+
 var attackerSelect = document.getElementById('attacker-select'),
     defenderSelect = document.getElementById('defender-select'),
     assaultSelect = document.getElementById('assault-select'),

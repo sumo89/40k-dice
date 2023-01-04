@@ -501,5 +501,71 @@ PossibleUnits = {
         invulnerable: 5,
         ap: 3,
         damage: 1
+    },
+    VOTANN_WARRIORS_BOLTERS:{
+        name: "Votann Warriors w/Bolter",
+        models: 5,
+        toughness: 4,
+        strength: 4,
+        ws: 3,
+        wounds: 1,
+        attacks: 2,
+        save: 4,
+        invulnerable: 5,
+        ap: 1,
+        damage: 1
+    },
+    VOTANN_WARRIORS_ION:{
+        name: "Votann Warriors w/Ion",
+        models: 5,
+        toughness: 4,
+        strength: 4,
+        ws: 3,
+        wounds: 1,
+        attacks: 2,
+        save: 4,
+        invulnerable: 5,
+        ap: 2,
+        damage: 2
+    },
+    VOTANN_HEARTHGUARD_VOLKITE:{
+        name: "Votann Hearthguard w/Volkite",
+        models: 5,
+        toughness: 5,
+        strength: 4,
+        ws: 3,
+        wounds: 1,
+        attacks: 3,
+        save: 2,
+        invulnerable: 4,
+        ap: 0,
+        damage: 1
+    },
+    VOTANN_HEARTHGUARD_PLASM:{
+        name: "Votann Hearthguard w/Plasma",
+        models: 5,
+        toughness: 5,
+        strength: 4,
+        ws: 3,
+        wounds: 1,
+        attacks: 1,
+        save: 2,
+        invulnerable: 4,
+        ap: 4,
+        damage: 2
+    },
+    VOTANN_BESERKS_HAMMERS:{
+        name: "Votann Beserks w/Hammers",
+        models: 5,
+        toughness: 5,
+        strength: 10,
+        ws: 4,
+        wounds: 1,
+        attacks: 3,
+        save: 6,
+        invulnerable: 5,
+        ap: 3,
+        damage: 3,
+        hitMod: Hitmods.ALL
     }
 }
