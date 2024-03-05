@@ -15,7 +15,8 @@ Woundmods = {
     ALL: 'all',
     ONES: 'ones',
     MINUSONE: 'minus one',
-    PLUSONE: 'plus one'
+    PLUSONE: 'plus one',
+    TRANSHUMAN: 'transhuman'
 },
 Damagemods = {
     MINUSONE: 'minus one'
@@ -32,7 +33,6 @@ PossibleUnits = {
         damage: 1,
         hitMod: Hitmods.ALL,
         woundMod: Woundmods.ALL,
-        woundMod: Woundmods.PLUSONE,
         save: 2,
         invulnerable: 4,
         wounds: 4
@@ -105,10 +105,25 @@ PossibleUnits = {
         strength: 8,
         ap: 2,
         damage: 3,
-        // hitMod: Hitmods.MINUSONE,
+        hitMod: Hitmods.MINUSONE,
+        toughness: 4,
+        save: 1,
+        invulnerable: 4,
+        wounds: 3,
+        // woundMod: Woundmods.TRANSHUMAN
+    },
+    TERMINATOR: {
+        name: 'Terminator Squad w/bolter & fist',
+        models: 5,
+        attacks: 2,
+        ws: 3,
+        strength: 8,
+        ap: 3,
+        damage: 2,
+        hitMod: Hitmods.MINUSONE,
         toughness: 4,
         save: 2,
-        invulnerable: 4,
+        invulnerable: 5,
         wounds: 3
     },
     INTERCESSOR: {
@@ -567,5 +582,45 @@ PossibleUnits = {
         ap: 3,
         damage: 3,
         hitMod: Hitmods.ALL
+    },
+    VOTANN_THUNDER_GRAV:{
+        name: "Votann Thunderkyn w/Graviton",
+        models: 5,
+        toughness: 5,
+        strength: 5,
+        ws: 3,
+        wounds: 3,
+        attacks: 4,
+        save: 3,
+        invulnerable: 5,
+        ap: 3,
+        damage: 3,
+        hitMod: Hitmods.ALL
+    },
+    TAU_BREACHERS_LONG:{
+        name: "Tau Breachers Long Range",
+        models: 10,
+        toughness: 3,
+        strength: 5,
+        ws: 3,
+        wounds: 1,
+        attacks: 2,
+        save: 4,
+        ap: 1,
+        damage: 1,
+        woundMod: Woundmods.ALL
+    },
+    TAU_BREACHERS_SHORT:{
+        name: "Tau Breachers Short Range",
+        models: 10,
+        toughness: 3,
+        strength: 6,
+        ws: 3,
+        wounds: 1,
+        attacks: 2,
+        save: 4,
+        ap: 2,
+        damage: 1,
+        woundMod: Woundmods.ALL
     }
 }
